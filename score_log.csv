@@ -1,0 +1,12 @@
+﻿date,prompt,model,overall,easy,hard
+2026-11-17 13:33,prompt_v1.txt,claude-sonnet-5-5,28/30,22/22,6/8
+2026-11-17 13:45,prompt_v2.txt,claude-sonnet-5-5,29/30,22/22,7/8
+2026-11-17 13:51,prompt_v3.txt,claude-sonnet-5-5,30/30,22/22,8/8
+2026-11-17 13:52,prompt_v3.txt,claude-sonnet-5-5,30/30,22/22,8/8
+2026-11-17 14:08,prompt_v1.txt,claude-sonnet-5-5,35/40,22/22,13/18
+2026-11-17 14:10,prompt_v3.txt,claude-sonnet-5-5,37/40,22/22,15/18
+2026-11-17 14:15,prompt_v3.txt,claude-sonnet-5-5,35/40,21/22,14/18
+2026-11-17 14:30,prompt_v3.txt,claude-sonnet-5-5,37/40,22/22,15/18
+2026-11-17 14:31,prompt_v4.txt,claude-sonnet-5-5,39/40,22/22,17/18
+2026-11-17 14:38,prompt_v5.txt,claude-sonnet-5-5,40/40,22/22,18/18
+2026-11-17 14:40,prompt_v5.txt,claude-sonnet-5-5,40/40,22/22,18/18

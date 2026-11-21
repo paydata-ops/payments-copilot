@@ -1,0 +1,87 @@
+﻿question,expected,grade,why,answer
+Which route caused the German Visa drop?,"ACQ_B, from 12 Nov, code 91",PASS,"The answer identifies ACQ_B as the route, shows the Visa decline jump starting on Nov 12, and names response code 91 as the main driver of the declines, matching the expected answer without contradiction.","**ACQ_B caused the German Visa drop.** Germany Visa's decline rate rose from 16.8% to 29.2% between Nov 11 and Nov 18, and it is still running.
+
+- **ACQ_B:** The Visa decline rate went from 16.0% to 47.1% (114 declines on 242 transactions). The daily rate was normal on Nov 11 (17.6%) and jumped on Nov 12 (68.8%). It has stayed between 28% and 69% since, and was 44.8% on Nov 18.
+- **Impact:** At the prior 16.0% rate, about 39 declines would be expected. That leaves roughly 75 excess declines, or about $4,984 of excess declined value. All 114 declines on this route total $7,235.
+- **Cause:** Response code 91 (issuer or switch unavailable) accounts for 48 of the 114 declines. Code 91 was almost absent on this route before the jump (1 in the earlier period). It was almost absent on ACQ_A in the same window (1 code 91 on 319 Visa transactions).
+- **Other routes:** ACQ_A Visa barely moved, from 15.6% to 17.2% (319 transactions). ACQ_C Visa rose from 16.3% to 24.2%, but on only 99 transactions in the window, about 12 a day, which is below the 30-a-day minimum for reporting a change.
+- **Other brands:** On ACQ_B in Germany, Mastercard is 20.1% with no code 91, and Amex and Discover are too small to judge. The problem is specific to Visa on ACQ_B.
+- **Merchants:** It is spread across ACQ_B's merchants, not tied to one.
+
+| Merchant | Decline rate | Declines |
+|---|---|---|
+| M010 | 66.7% | 16 |
+| M002 | 63.6% | 14 |
+| M001 | 55.6% | 15 |
+| M006 | 48.6% | 17 |
+
+M006 and M001 contribute the most declines. Most other ACQ_B merchants are also in the 38–46% range. Rerouting German Visa traffic away from ACQ_B and raising the code 91 errors with that acquirer should be the first steps."
+Where did M003 experience a spike in declines?,France,PASS,"The answer clearly states that M003's spike was in France, matching the expected answer, with extensive supporting detail that does not contradict it.","**M003 had one clear spike, in France. It started on 2026‑10‑29 and is still running as of 2026‑11‑18.**
+
+- **Size of the spike:** M003's France decline rate rose from 17.9% (397 transactions, 2026‑09‑20 to 10‑28) to 47.8% (205 transactions, 10‑29 to 11‑18). Of those 205 transactions, 98 were declined, worth $6,056. Against the 17.9% prior rate, that is about 61 excess declines, or about $3,818 in lost volume.
+- **Cause:** 3DS failures. The share of France transactions declined with `3DS_FAIL` went from 5.0% to 36.6%, which is 75 declines and $4,710. Other decline codes did not rise. The share of transactions that went to a 3DS challenge rose too, for example Visa from 27.6% to 80.0% and Mastercard from 38.6% to 77.9%.
+- **Brands:** The problem is not limited to one brand. Visa went from 18.2% to 47.6% (105 transactions after the change) and Mastercard from 16.6% to 48.8% (86). Amex went from 16.7% to 38.5%, but only 13 transactions, so treat that as indicative. Every acquirer route (ACQ_A, ACQ_B and ACQ_C) shows the same pattern.
+- **Still active:** From 11‑16 to 11‑18 the France decline rate was 46.7% on 30 transactions, with 3DS failures at 33.3%.
+- **Sample size:** M003 has only about 5 to 15 France transactions a day, below the 30 a day minimum. I therefore judged this over the full 3‑week window rather than day by day. The weekly France rate climbs from 25.4% in the week of 10‑12 to 38.5% on 10‑26 and 54.0% on 11‑02. Part of that rise was before 10‑29, but the sharpest step is on 10‑29.
+- **Wider check:** No other M003 country shows this. 3DS failure rates were flat or lower after 10‑29 in DE (5.2% to 3.5%), ES (8.1% to 2.9%), GB (4.4% to 6.1%) and IT (5.9% to 5.4%). BR, JP and US have no 3DS failures at all. I did not use the portfolio scan to cross-check M003, because its findings are by country and brand rather than by merchant. It did show wider France Visa and Mastercard 3DS declines starting 10‑29 and 10‑30.
+
+**Action:** Review M003's 3DS challenge setup in France from 10‑29 onward."
+How many issues are ongoing?,2,PASS,"The answer states two ongoing issues, matching the expected answer of 2.","**Two issues are ongoing.** The scan flagged 33 segments but listed only 15, so I checked the ongoing candidates in SQL. I did not review the other 18.
+
+1. **DE + Visa + ACQ_B: code 91 (issuer/switch unavailable).**
+   - It started on 2026-11-12 and is still running on 11-18.
+   - The decline rate is 51.9% on 208 transactions, against a normal 17.2%. That is about 72 excess declines, or roughly $4.6K.
+   - The scan showed DE Visa overall at 29.2%, so the problem is concentrated in this route.
+   - Every merchant is hit, and M001 (9 code 91 declines), M010 (7) and M006 (6) are the largest.
+   - On the other routes, ACQ_A is normal at 17.2%. ACQ_C is at 24.2% with only 1 code 91, so it is not the same problem.
+
+2. **FR + merchant M003: failed 3DS challenges, across Visa and Mastercard on all routes.**
+   - It started on 2026-10-29 and is still running on 11-18. M003's decline rate is 48.2%, against a normal 17.5%. That is about 59 excess declines, or roughly $3.7K.
+   - Every ""Challenge Failed"" transaction at M003 declined, on all three routes and for both brands.
+   - It looked finished at brand level. The FR Visa decline window ended 11-15 (last 3 days 14.9%), and the FR Mastercard decline window ended 11-08, but M003 never recovered.
+   - The scan still flags FR Mastercard as active on code 05 (9.3% over the last 3 days).
+   - M003 handles only about 9 transactions a day, below the 30-a-day minimum, so this is a small-sample finding. It is consistent across 21 days and every route, so I'm reporting it.
+
+The other scan findings had stopped at the segment level, including BR Mastercard, US ACQ_B and FR Visa. I did not check those at merchant level."
+Which brand saw increased decline in Brazil?,Mastercard,PASS,"The answer clearly states that Mastercard is the brand in Brazil with increased declines, matching the expected answer 'Mastercard'.","**Mastercard is the brand in Brazil with a real increase in declines. It has since recovered.**
+
+- **Size of the spike:** From 11 to 24 Oct, Mastercard's decline rate in Brazil rose to 24.0% (117 declines on 488 transactions). The rate before that was about 14.7% (109 declines on 739 transactions). The scan put the excess at about 48 declines, or about **$3,170** in declined volume, at 35 transactions a day (z = 6.2).
+- **Cause:** Code 51 (insufficient funds) drove it, up about 10 points. Code 05 also spiked on 12–14 Oct, to 14.1% against a normal 5.0%, which added about 9 excess declines (about $600).
+- **Routes:** The rise was on ACQ_A (13.9% to 25.8%) and ACQ_B (15.0% to 24.1%). ACQ_C barely moved (17.0% to 16.1%).
+- **Merchants:** All ten Mastercard merchants were affected. The highest decline rates in the window were M010 (28.6%, with 10 code 51 declines and $1,604 declined), M005 (27.5%, with 13 code 51 declines and $963 declined), M004 (27.3%, $879) and M008 (25.0%, $1,171).
+- **Status:** After 24 Oct, ACQ_A (14.7%), ACQ_B (12.2%) and ACQ_C (14.8%) were back near their prior levels. No merchant stayed elevated. M002 is the one to watch: it is at 18.7% against 11.5% before, though that is a small sample.
+- **Other brands:**
+  - Visa did not rise. It was 10–13% on every route during the window.
+  - Amex and Discover looked higher on some routes, but their volumes are far below 30 transactions a day, so I haven't reported them.
+
+I only checked Brazil here. The scan also flagged DE Visa as still running, but that is outside this question."
+Were the main issues caused by an increase in 05 declines?,no,PASS,"The answer opens with 'No' and says the three biggest issues were driven by codes other than 05, which matches the expected answer. Its extra detail, though it has a slight tension with the FR Mastercard 05 finding, does not contradict the core 'no'.","**No. The three biggest issues were driven by other codes, not by 05.** Code 05 rose only in smaller, short-lived blips.
+
+1. **DE Visa on ACQ_B (still running).**
+   - **Impact:** The decline rate rose from about 16% to 29% across DE Visa. The scan puts the excess at 82 declines, or $5,423.
+   - **Cause:** Code 91 (issuer unavailable) rose from 0.1% to 19.8% on ACQ_B, while code 05 only went from 4.0% to 9.5%. On ACQ_B the decline rate jumped from 16.0% to 47.1%.
+   - **Start date:** It began on 2026-11-12. DE Visa ACQ_B was at 17.6% on 11-11, then 68.8% on 11-12.
+   - **Scope:** ACQ_A and ACQ_C Visa, and DE Mastercard, show no matching 91 spike.
+   - **Merchants:** All 10 merchants are hit. The worst are M010 (66.7% declines), M002 (63.6%), M001 (55.6%) and M006 (48.6%).
+
+2. **FR Visa and Mastercard (3DS_FAIL).**
+   - **Impact:** The scan puts the excess at about $3,280 for Visa (to 11-15) and $2,458 for Mastercard (to 11-08). I can't confirm that either one has stopped. The scan's 05 finding for FR Mastercard shows it still active, and merchant M003 is still failing.
+   - **Cause:** 3DS_FAIL is the main code that rose, from about 5% to about 9% for both brands. FR Mastercard code 05 rose from 3.2% to 7.0%, but the scan shows 3DS_FAIL rising most within that 05 window.
+   - **Merchant:** M003 is the driver. Its decline rate went from 20.2% to 47.5%, and 3DS_FAIL from 6.1% to 35.5%. Visa went from 20.2% to 47.5% and Mastercard from 20.0% to 47.6%.
+   - **Still running:** M003's 3DS_FAIL rate was 23.1% on 11-18, so it hasn't ended.
+   - **Sample size:** M003 has only about 10 transactions a day, below the 30 a day minimum. The FR brand-level totals meet it.
+
+3. **BR Mastercard, 10-11 to 10-24 (stopped).**
+   - **Impact:** The decline rate rose from 14.2% to 24.0%, with excess of $3,170.
+   - **Cause:** Code 51 (insufficient funds) rose from 5.0% to 15.2%, and code 05 from 4.9% to 7.2%.
+   - **Spread:** It hit all 10 merchants. M005 (25.5% code 51) and M004 (20.5%) were worst.
+   - **Ended:** Every merchant's decline rate is back to normal after 10-24.
+
+**Where 05 did spike:** These were brief and smaller.
+- US Visa ACQ_B, 09-22 to 09-24: excess of about $805.
+- US Visa ACQ_A, 10-24 to 10-27: about $1,063.
+- BR Mastercard, 10-12 to 10-14: about $600.
+
+All of these have ended. I didn't run merchant-level checks on them or on the other US, IT and ES code 05 findings. I also didn't scan beyond what the scan covered.
+
+**Priority:** The ongoing issues rank first, by dollar value: DE Visa ACQ_B (code 91), then FR M003 (3DS_FAIL)."

@@ -1,0 +1,23 @@
+# Secrets: holds the Anthropic API key. Never share.
+.env
+
+# Installed add-ons (anthropic, matplotlib, ...). Big, computer-specific, reinstallable.
+.venv/
+
+# Files Python creates by itself to start faster; regenerated automatically.
+__pycache__/
+*.pyc
+
+# Generated data: recreate exactly with  python generate_data.py  (fixed seed).
+transactions.db
+
+# Page picture used only to check the exec-summary layout; the PDF is kept.
+reports/*.png
+
+# Personal Claude Code permission settings.
+.claude/settings.local.json
+
+# Excel lock files and Windows folder files.
+~$*
+Thumbs.db
+desktop.ini

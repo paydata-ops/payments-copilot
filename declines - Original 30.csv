@@ -1,0 +1,31 @@
+response_code,card_brand,country,3ds,merchant_note,correct_category,difficulty
+51,Visa,US,Authenticated,Standard decline for overdraft on debit card; customer notified.,insufficient_funds,easy
+05,Mastercard,GB,Frictionless,Generic Do Not Honor from cardholder bank with no additional detail.,issuer_decline,hard
+FRAUD_BLOCKED_IP,Visa,NG,N/A,Sift/Radar rule triggered: IP geofence blacklisted for card testing patterns.,fraud_rule,easy
+3DS_FAIL_OTP,Visa,FR,Challenge Failed,Cardholder entered wrong SMS one-time passcode twice and exited.,3ds_failure,easy
+96,Amex,JP,N/A,Processing switch timeout during peak traffic; acquirer dropped packet.,routing_issue,easy
+05,Mastercard,DE,Frictionless,Card expiration date passed (09/24); auto-renewal charge failed.,issuer_decline,hard
+61,Discover,US,Authenticated,Customer exceeded single withdrawal/purchase limit set on account.,insufficient_funds,hard
+05,Visa,US,Frictionless,"$5,200 sudden high-ticket charge flagged by internal merchant risk radar, but gateway forwarded and issuer returned generic 05.",issuer_decline,easy
+FRAUD_VELOCITY_MAX,Mastercard,BR,N/A,8 payment attempts in 60 seconds with identical fingerprint; merchant gateway rule terminated session.,fraud_rule,easy
+3DS_CHALLENGE_REJECTED,Mastercard,ES,Rejected by ACS,Issuing bank ACS determined risk was too high during 3DS challenge stage and rejected outright.,3ds_failure,hard
+14,Discover,AU,N/A,Terminal returned invalid BIN; merchant acquirer terminal setup lacks cross-border Discover routing table.,routing_issue,easy
+51,Visa,IT,Authenticated,Prepaid travel card had $12.40 balance against $85.00 cart total.,insufficient_funds,easy
+59,Amex,US,Frictionless,Customer claims card works on other sites,issuer_decline,hard
+FRAUD_PROXY_DETECTED,Visa,RU,N/A,Tor exit node identified; custom merchant fraud firewall auto-declined before authorization request.,fraud_rule,easy
+51,Visa,IN,Authenticated,Indian banking network gateway offline for scheduled maintenance; switch failed to route.,routing_issue,hard
+57,Mastercard,SG,Authenticated,Cardholder account restricted by issuer from international cross-border online gambling/gaming.,issuer_decline,easy
+51,Mastercard,MX,N/A,Recurring monthly SaaS charge failed after multiple daily retry cycles; card credit limit permanently exhausted.,insufficient_funds,easy
+3DS_TIMEOUT,Visa,NL,Timeout,Issuer ACS 3DS verification frame hung for 45s; customer gave up and acquirer closed connection.,3ds_failure,easy
+FRAUD_AVS_MISMATCH,Amex,US,N/A,Billing street and zip code completely mismatched stolen card profile; merchant rule auto-voided.,fraud_rule,easy
+92,JCB,JP,N/A,Destination financial institution ID not found in regional clearinghouse routing matrix.,routing_issue,easy
+65,Visa,CA,Authenticated,Issuer declined code 65 (Daily Activity Count Exceeded); looks like bot card-testing but decline was enforced by issuing bank.,issuer_decline,easy
+3DS_FRICTIONLESS_UNAVAILABLE,Mastercard,SE,Unsupported,"Merchant requires 3DS for PSD2 compliance, but cardholder card brand version 1.0 unsupported by directory server.",3ds_failure,easy
+51,Visa,GB,Frictionless,Available overdraft facility depleted; issuer rejected authorization for insufficient funds.,insufficient_funds,easy
+FRAUD_DEVICE_SPOOF,Mastercard,US,Challenge Abandoned,"User abandoned 3DS popup, attempted instant replay with forged user-agent header; caught by fraud engine rules.",fraud_rule,easy
+04,Visa,ZA,N/A,Pickup card / reported lost or stolen; issuer hard decline.,issuer_decline,easy
+96,Visa,BR,Attempted,"Acquirer failover secondary pipeline misrouted currency conversion parameter, throwing gateway exception.",routing_issue,hard
+FRAUD_EMAIL_DOMAIN_RISK,Discover,US,N/A,Disposable temp-mail address linked to chargeback syndicate; merchant fraud score 98/100 triggered block.,fraud_rule,easy
+3DS_METHOD_FAILED,Visa,IT,Method URL Error,3DS method URL hidden iframe returned HTTP 500 error from bank ACS domain before authentication.,3ds_failure,easy
+94,Amex,GB,N/A,Duplicate transmission detected by gateway router; packet rejected at switch layer.,routing_issue,easy
+05,Mastercard,PL,Frictionless,Student checking account balance below transaction value ($14.20 vs $49.00).,insufficient_funds,hard
