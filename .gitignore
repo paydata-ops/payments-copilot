@@ -21,3 +21,12 @@ reports/*.png
 ~$*
 Thumbs.db
 desktop.ini
+
+# Routing agent output (simulated changes and run records).
+routing_changes.log
+routing_agent_runs.log
+
+# Routing agent test output.
+routing_changes_test.log
+routing_agent_test_runs.log
+transactions_clean.db

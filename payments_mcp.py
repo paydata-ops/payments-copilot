@@ -17,6 +17,7 @@
 import json
 import os
 import sqlite3
+import sys
 import threading
 
 from mcp.server.mcpserver import MCPServer
@@ -38,8 +39,13 @@ import analyst  # noqa: E402  (must come after the folder change above)
 # change or delete data. The server runs each tool on a background thread, so
 # the connection must allow that (check_same_thread=False), and the lock makes
 # sure only one tool uses it at a time. analyst.py's functions use this connection.
+# Normally that's transactions.db. A test can point at another file with:
+#   python payments_mcp.py --db transactions_clean.db
+DB_FILE = "transactions.db"
+if "--db" in sys.argv:
+    DB_FILE = sys.argv[sys.argv.index("--db") + 1]
 analyst.db = sqlite3.connect(
-    f"file:{os.path.join(PROJECT_DIR, 'transactions.db')}?mode=ro",
+    f"file:{os.path.join(PROJECT_DIR, DB_FILE)}?mode=ro",
     uri=True, check_same_thread=False)
 db_lock = threading.Lock()
 

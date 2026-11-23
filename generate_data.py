@@ -5,9 +5,15 @@
 
 import random
 import sqlite3
+import sys
 from datetime import date, timedelta
 
 random.seed(42)  # same "random" data every time, so results are repeatable
+
+# Normal run:  python generate_data.py                    -> transactions.db, with the hidden problems
+# Test copy:   python generate_data.py --clean FILE.db     -> same kind of data, NO hidden problems
+PLANT_PROBLEMS = "--clean" not in sys.argv
+OUT_FILE = "transactions.db" if PLANT_PROBLEMS else sys.argv[sys.argv.index("--clean") + 1]
 
 END = date(2026, 11, 18)
 START = END - timedelta(days=59)
@@ -59,14 +65,15 @@ while day <= END:
         code_mix = NORMAL_DECLINES
 
         # --- hidden problems (no peeking if you want a real test!) ---
-        if brand == "Visa" and country == "DE" and route == "ACQ_B" and days_to_end <= 6:
-            decline_rate = 0.45
-            code_mix = [("91", 0.55), ("96", 0.30), ("05", 0.15)]
-        if merchant == "M003" and country == "FR" and days_to_end <= 20:
-            tds = pick([("Challenge Failed", 0.35), ("Challenge Passed", 0.40), ("Frictionless", 0.25)])
-        if brand == "Mastercard" and country == "BR" and 25 <= days_to_end <= 39:
-            decline_rate = 0.24
-            code_mix = [("51", 0.6), ("05", 0.3), ("61", 0.1)]
+        if PLANT_PROBLEMS:
+            if brand == "Visa" and country == "DE" and route == "ACQ_B" and days_to_end <= 6:
+                decline_rate = 0.45
+                code_mix = [("91", 0.55), ("96", 0.30), ("05", 0.15)]
+            if merchant == "M003" and country == "FR" and days_to_end <= 20:
+                tds = pick([("Challenge Failed", 0.35), ("Challenge Passed", 0.40), ("Frictionless", 0.25)])
+            if brand == "Mastercard" and country == "BR" and 25 <= days_to_end <= 39:
+                decline_rate = 0.24
+                code_mix = [("51", 0.6), ("05", 0.3), ("61", 0.1)]
         # ---------------------------------------------------------------
 
         if tds == "Challenge Failed":
@@ -80,7 +87,7 @@ while day <= END:
                      route, amount, tds, code, approved))
     day += timedelta(days=1)
 
-db = sqlite3.connect("transactions.db")
+db = sqlite3.connect(OUT_FILE)
 db.execute("DROP TABLE IF EXISTS transactions")
 db.execute("""
     CREATE TABLE transactions (
@@ -99,5 +106,5 @@ db.execute("""
 db.executemany("INSERT INTO transactions VALUES (?,?,?,?,?,?,?,?,?,?,?)", rows)
 db.commit()
 db.close()
-print(f"Created transactions.db with {len(rows):,} transactions "
-      f"from {START} to {END}.")
+print(f"Created {OUT_FILE} with {len(rows):,} transactions "
+      f"from {START} to {END}" + ("." if PLANT_PROBLEMS else ", WITHOUT the hidden problems."))
