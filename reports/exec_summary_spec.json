@@ -38,5 +38,6 @@
     {"type": "handling", "what": "German Visa traffic rerouted off ACQ_B (completed 19 Nov); follow-up with ACQ_B on the code 91/96 spike", "owner": "Payments Ops", "by": "2026-11-20", "at_stake": "[[~$4.7K/week]]"},
     {"type": "handling", "what": "deep-dive analysis of M003's 3DS challenge failures (due 19 Nov); call with the merchant", "owner": "Payments Ops", "by": "2026-11-20", "at_stake": "[[~$1.3K/week]]"},
     {"type": "handling", "what": "alert on the BR code 51 rate added (19 Nov); follow-up with Mastercard and BR issuers", "owner": "Payments Ops", "by": "week of 23 Nov"}
-  ]
+  ],
+  "next_steps_note": "Sample report on synthetic data: the actions, owners and dates above are illustrative, not real events."
 }

@@ -280,6 +280,10 @@ for label, group in (("Decision needed:", decisions), ("Handling:", handling),
 if extra:
     y = rich(ax, "**Other issues:** " + "; ".join(
         f"{i['name']} ({i['status']}, {usd(i['excess_usd'])})" for i in extra), y=y, size=8)
+    y -= 0.03
+# Optional small note under the steps (e.g. "actions in this sample are illustrative")
+if spec.get("next_steps_note"):
+    y = rich(ax, "**Note:** " + spec["next_steps_note"], y=y, size=7)
 
 # ---------- save ----------
 out = spec_path.parent / f"exec_summary_{spec['data_through']}.pdf"
