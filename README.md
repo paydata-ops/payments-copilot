@@ -1,5 +1,9 @@
 # Payments Copilot
 
+**▶ [Watch the 2-minute demo video](https://youtu.be/lRiEGpbvsc8)**
+
+[![Payments Copilot demo video](https://img.youtube.com/vi/lRiEGpbvsc8/hqdefault.jpg)](https://youtu.be/lRiEGpbvsc8)
+
 **AI assistants for card-payment operations: explain why payments are declined, find where approval rates dropped, and propose a fix that a person must approve.**
 
 Built by a payments analytics lead with 9+ years in acquiring.
